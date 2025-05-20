@@ -1,0 +1,41 @@
+# General
+*.pyc
+__pycache__/
+.env
+.env.*
+*.env
+*.log
+.DS_Store
+node_modules/
+dist/
+build/
+
+# Python
+poetry.lock
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Frontend
+oura-ai/frontend/node_modules/
+oura-ai/frontend/dist/
+oura-ai/frontend/.env
+
+# Backend
+oura-ai/backend/.env
+oura-ai/backend/.env.*
+
+# Ignore local test output
+*.pytest_cache/
+
+# Ignore coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# Ignore IDE files
+.idea/
+*.iml
