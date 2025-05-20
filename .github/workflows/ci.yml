@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: abatilo/actions-poetry@v3
+      - name: Install dependencies
+        run: poetry install
+        working-directory: backend
+      - name: Lint
+        run: poetry run ruff .
+        working-directory: backend
+      - name: Format
+        run: poetry run black --check .
+        working-directory: backend
+      - name: isort
+        run: poetry run isort --check .
+        working-directory: backend
+      - name: Test
+        run: poetry run pytest
+        working-directory: backend
+
+  frontend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: frontend
+      - name: Type check
+        run: pnpm exec tsc --noEmit
+        working-directory: frontend
