@@ -13,21 +13,7 @@ api.interceptors.response.use(
   }
 );
 
-export const fetchSleep = async () => {
-  const res = await api.get("/sleep");
-  return res.data;
-};
-
-export const fetchActivity = async (start_date: string, end_date: string) => {
-  const res = await api.get(
-    `/daily_activity?start_date=${start_date}&end_date=${end_date}`
-  );
-  return res.data;
-};
-
-export const fetchPersonalInfo = async () => {
-  const res = await api.get("/personal_info");
-  return res.data;
-};
+// Removed fetchSleep, fetchActivity, and fetchPersonalInfo as they are no longer used.
+// The App.tsx now uses the generic 'api.get(`/oura_data/${endpointPath}` ...)' call.
 
 export { api };
